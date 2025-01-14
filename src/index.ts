@@ -3,10 +3,12 @@ import http from "http";
 import helmet from "helmet";
 import cors from "cors";
 
-import Logger from "./utils/logger";
-import { ErrorResponse } from "./middlewares/errorhandler";
+import Logger from "./shared/utils/logger";
+import { ErrorResponse } from "./shared/middlewares/errorhandler";
 import { PORT } from "./config/constants";
 
+import apiRoute from "./features/api/routers";
+import authRoute from "./features/auth/routers";
 
 export const app = express();
 export const server = http.createServer(app);
@@ -18,6 +20,9 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+
+app.use("/api", apiRoute);
+app.use("/auth", authRoute);
 
 
 // 404 Error

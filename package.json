@@ -1,7 +1,7 @@
 {
   "name": "lms-api",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "./dist/index.js",
   "repository": "https://github.com/lola-emil/lms-api.git",
   "author": "Rens Salaladaga <staleexam19@gmail.com>",
   "license": "MIT",
