@@ -4,7 +4,7 @@ import helmet from "helmet";
 import cors from "cors";
 
 import Logger from "./shared/utils/logger";
-import { ErrorResponse } from "./shared/middlewares/errorhandler";
+import { ErrorResponse } from "./shared/lib/response";
 import { PORT } from "./config/constants";
 
 import apiRoute from "./features/api/routers";
@@ -29,7 +29,7 @@ app.use("/auth", authRoute);
 app.use("*", (req, res) => {
     let message = `Can't ${req.method} ${req.originalUrl}`;
     Logger.error(message);
-    throw new ErrorResponse(404, message);
+    throw new ErrorResponse(404, message, {});
 });
 
 
