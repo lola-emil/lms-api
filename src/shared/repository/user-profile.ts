@@ -7,8 +7,10 @@ export type UserProfile = {
     mname: string,
     lname: string,
 
-    createdAt: Date,
-    updatedAt: Date,
+    user_id: number,
+
+    created_at: Date,
+    updated_at: Date,
 };
 
 

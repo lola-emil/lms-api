@@ -5,8 +5,10 @@ export type UserRole = {
     id: number,
     name: string,
 
-    createdAt: Date,
-    updatedAt: Date,
+    user_permission_id: number,
+
+    created_at: Date,
+    updated_at: Date,
 };
 
 

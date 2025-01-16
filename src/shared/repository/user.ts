@@ -9,8 +9,10 @@ export type User = {
     username: number,
     password: number,
 
-    createdAt: Date,
-    updatedAt: Date
+    role_id: number,
+
+    created_at: Date,
+    updated_at: Date
 };
 
 

@@ -6,8 +6,8 @@ export type UserPermission = {
     name: string,
     description: string,
 
-    createdAt: Date,
-    updatedAt: Date
+    created_at: Date,
+    updated_at: Date
 }
 
 
