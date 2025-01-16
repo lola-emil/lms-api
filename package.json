@@ -12,6 +12,7 @@
     "dev": "concurrently \"yarn build -w\" \"nodemon .\""
   },
   "devDependencies": {
+    "@jest/globals": "^29.7.0",
     "@types/bcrypt": "^5.0.2",
     "@types/express": "^5.0.0",
     "@types/ip": "^1.1.3",
