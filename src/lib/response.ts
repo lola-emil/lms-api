@@ -1,4 +1,4 @@
-import { v4 as uuidv4 } from "uuid";
+
 export class HttpResponse {
     status: number;
     message: string;
@@ -13,17 +13,19 @@ export class HttpResponse {
 };
 
 export class ErrorResponse extends Error {
-    id: string; // unique id for logging purposes
     status: number;
-    message: string;
-    payload: unknown;
+    data: any;
+    // errorId: string;
 
-    constructor(status: number = 400, message: string = "", payload: unknown) {
+    constructor(status: number, message?: string, data?: any) {
         super();
-        this.id = uuidv4();
-        this.status = status;
-        this.message = message;
-        this.payload = payload;
-    }
 
+        this.status = status;
+
+        if (this.status >= 500)
+            this.message = "Internal Server Error: " + this.message;
+
+        this.message = String(message ?? "");
+        this.data = data;
+    }
 }

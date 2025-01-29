@@ -1,17 +1,18 @@
 import express from "express";
-import http from "http";
+import http from "https";
 import helmet from "helmet";
 import cors from "cors";
 
-import Logger from "./shared/utils/logger";
-import { ErrorResponse } from "./shared/lib/response";
+import Logger from "./utils/logger";
+import { ErrorResponse } from "./lib/response";
 import { PORT } from "./config/constants";
 
-import apiRoute from "./features/api/routers";
-import authRoute from "./features/auth/routers";
+import fs from "fs";
 
 export const app = express();
-export const server = http.createServer(app);
+export const server = http.createServer({
+    cert: fs.readFileSync("sfroot-g2.crt")
+}, app);
 
 
 app.use(helmet());
@@ -19,10 +20,6 @@ app.use(cors());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-
-
-app.use("/api", apiRoute);
-app.use("/auth", authRoute);
 
 
 // 404 Error

@@ -5,19 +5,19 @@ import { ErrorResponse } from "../lib/response";
 
 export default function errorHandler(error: Error, req: Request, res: Response, _next: NextFunction): unknown {
 
+    console.log(error);
+
     if (error instanceof ErrorResponse) {
         const status = (<ErrorResponse>error).status;
         const message = (<ErrorResponse>error).message;
-        const payload = (<ErrorResponse>error).payload;
+        const data = (<ErrorResponse>error).data;
         return res.status(status).json({
-            status,
             message,
-            data: payload
+            data
         });
     } else {
         Logger.error("Internal Server Error: " + error.message)
         return res.status(500).json({
-            status: 500,
             message: "Internal Server Error: " + error.message
         })
     }
