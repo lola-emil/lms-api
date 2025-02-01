@@ -1,5 +1,5 @@
 import { db } from "../../config/db";
-import { ErrorResponse } from "../lib/response";
+import { ErrorResponse } from "./response";
 
 
 type QueryModifiers<T> = {
@@ -13,7 +13,7 @@ type QueryModifiers<T> = {
 
 } & T;
 
-export default class CrudRepo<T> {
+export default class CrudRepo<T extends {}> {
     private tableName: string;
 
     constructor(tableName: string) {
@@ -37,7 +37,7 @@ export default class CrudRepo<T> {
         return cols.split(",").filter(col => allowedCols.includes(col.trim()));
     }
 
-    async find(query: QueryModifiers<Partial<T>>) {
+    async find(query: QueryModifiers<Partial<T>>): Promise<T[]> {
         try {
             const sql = db(this.tableName);
 

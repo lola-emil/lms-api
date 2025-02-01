@@ -4,7 +4,7 @@ import helmet from "helmet";
 import cors from "cors";
 
 import Logger from "./shared/utils/logger";
-import { ErrorResponse } from "./shared/lib/response";
+import { ErrorResponse } from "./shared/utils/response";
 import { PORT } from "./config/constants";
 
 import errorHandler from "./shared/middlewares/errorhandler";

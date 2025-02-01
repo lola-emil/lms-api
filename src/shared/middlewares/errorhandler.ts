@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import Logger from "../utils/logger";
-import { ErrorResponse } from "../lib/response";
+import { ErrorResponse } from "../utils/response";
 
 
 export default function errorHandler(error: Error, req: Request, res: Response, _next: NextFunction): unknown {
