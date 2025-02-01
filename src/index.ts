@@ -7,8 +7,9 @@ import Logger from "./utils/logger";
 import { ErrorResponse } from "./lib/response";
 import { PORT } from "./config/constants";
 
-import fs from "fs";
 import errorHandler from "./middlewares/errorhandler";
+
+import { hello } from "./lib/doc_parser/index.node";
 
 export const app = express();
 export const server = http.createServer(app);
@@ -23,7 +24,7 @@ app.use(express.urlencoded({ extended: false }));
 
 // 404 Error
 app.use("*", (req, res) => {
-    let message = `Can't ${req.method} ${req.originalUrl}`;
+    let message = `Can't ${req.method} ${req.originalUrl} ${hello()}`;
     Logger.error(message);
     throw new ErrorResponse(404, message, {});
 });
