@@ -9,10 +9,11 @@
   "scripts": {
     "test": "jest",
     "build": "tsc -p .",
-    "dev": "concurrently \"yarn build -w\" \"nodemon .\""
+    "dev": "concurrently \"yarn build -w\" \"nodemon .\""  
   },
   "devDependencies": {
     "@jest/globals": "^29.7.0",
+    "@neon-rs/cli": "^0.1.82",
     "@types/bcrypt": "^5.0.2",
     "@types/express": "^5.0.0",
     "@types/ip": "^1.1.3",

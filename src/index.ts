@@ -1,5 +1,5 @@
-import express from "express";
-import http from "https";
+import express, { ErrorRequestHandler } from "express";
+import http from "http";
 import helmet from "helmet";
 import cors from "cors";
 
@@ -8,11 +8,10 @@ import { ErrorResponse } from "./lib/response";
 import { PORT } from "./config/constants";
 
 import fs from "fs";
+import errorHandler from "./middlewares/errorhandler";
 
 export const app = express();
-export const server = http.createServer({
-    cert: fs.readFileSync("sfroot-g2.crt")
-}, app);
+export const server = http.createServer(app);
 
 
 app.use(helmet());
@@ -28,6 +27,9 @@ app.use("*", (req, res) => {
     Logger.error(message);
     throw new ErrorResponse(404, message, {});
 });
+
+
+app.use(errorHandler as ErrorRequestHandler);
 
 
 server.listen(PORT, () =>
