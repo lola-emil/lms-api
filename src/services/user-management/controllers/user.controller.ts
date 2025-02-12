@@ -1,6 +1,6 @@
 import { type Request, type Response } from "express";
 import UserProfileRepo, { UserProfile } from "../repository/user-profile";
-import UserRoleRepo, { UserRoles } from "../repository/user-role";
+import UserRoleRepo, { UserRole } from "../repository/user-role";
 import UserRepo, { User } from "../repository/user";
 import { UserRequestBody, validateUser } from "../validators/user.validator";
 import { ErrorResponse } from "../../../shared/utils/response";
@@ -13,10 +13,13 @@ export async function insert(req: Request, res: Response) {
 
 
     if (errors)
-        throw new ErrorResponse(200, "", errors);
+        throw new ErrorResponse(400, "", errors);
 
     body.user.password = await bcrypt.hash(body.user.password, 10);
-    await UserProfileRepo.insert(body.userProfile);
+
+    const profileResult  = await UserProfileRepo.insert(body.user_profile);
+
+    body.user.profile_id = profileResult[0];
     const userResult = await UserRepo.insert(body.user);
 
     return res.status(200).json(userResult);

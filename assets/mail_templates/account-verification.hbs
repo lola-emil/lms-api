@@ -1,0 +1,50 @@
+module.exports = ({ name, verification_link, year }) => `
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Account Verification</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            color: #ffffff;
+            background-color: #007BFF;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+        .footer {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Verify Your Account</h2>
+        <p>Hello ${name},</p>
+        <p>Thank you for signing up. Please verify your account by clicking the button below:</p>
+        <a href="${verification_link}" class="btn">Verify Account</a>
+        <p>If you didn't sign up, you can safely ignore this email.</p>
+        <p class="footer">&copy; ${year} Your Company. All rights reserved.</p>
+    </div>
+</body>
+</html>`;

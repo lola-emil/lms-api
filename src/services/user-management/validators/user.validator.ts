@@ -5,7 +5,7 @@ import userProfile, { UserProfile } from "../repository/user-profile";
 
 export type UserRequestBody = {
     user: User,
-    userProfile: UserProfile,
+    user_profile: UserProfile,
 };
 
 
@@ -26,13 +26,15 @@ const userBodySchema = Joi.object({
                 "string.pattern.name": "Password must contain at least one {#name}.",
                 "any.required": "Password is required."
             }),
+        role_id: Joi.number().required(),
     }).required(),
 
-    userProfile: Joi.object({
+    user_profile: Joi.object({
         fname: Joi.string().required(),
         mname: Joi.string(),
         lname: Joi.string().required(),
-        id_no: Joi.string()
+        id_no: Joi.string().required(),
+        dob: Joi.date().required()
     }).required(),
 });
 

@@ -2,7 +2,7 @@ import CrudRepo from "../../../shared/utils/crudrepo";
 
 
 const TBL_NAME = "user_roles";
-export type UserRoles = {
+export type UserRole = {
     id: number,
     role_name: string,
 
@@ -10,4 +10,4 @@ export type UserRoles = {
     updated_at: Date,
 };
 
-export default new CrudRepo<UserRoles>(TBL_NAME);
+export default new CrudRepo<UserRole>(TBL_NAME);
