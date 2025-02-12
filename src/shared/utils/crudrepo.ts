@@ -1,4 +1,5 @@
 import { db } from "../../config/db";
+import Logger from "./logger";
 import { ErrorResponse } from "./response";
 
 
@@ -63,6 +64,7 @@ export default class CrudRepo<T extends {}> {
 
             return await sql;
         } catch (error) {
+            console.log(error);
             throw new ErrorResponse(400, "Invalid query");
         }
     }

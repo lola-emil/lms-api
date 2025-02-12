@@ -1,7 +1,6 @@
 import Joi from "joi";
 import userRepo, { User } from "../repository/user";
 import userProfile, { UserProfile } from "../repository/user-profile";
-import userRole, { UserRoles } from "../repository/user-role";
 
 
 export type UserRequestBody = {
@@ -30,9 +29,10 @@ const userBodySchema = Joi.object({
     }).required(),
 
     userProfile: Joi.object({
-        fname: Joi.string().required,
+        fname: Joi.string().required(),
         mname: Joi.string(),
-        lname: Joi.string().required
+        lname: Joi.string().required(),
+        id_no: Joi.string()
     }).required(),
 });
 

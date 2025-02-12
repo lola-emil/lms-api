@@ -9,6 +9,7 @@ export type User = {
     password: string,
 
     role_id: number, // katung student or teacher or admin man galing
+    profile_id: number,
 
     created_at: Date,
     updated_at: Date,

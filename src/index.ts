@@ -7,6 +7,8 @@ import Logger from "./shared/utils/logger";
 import { ErrorResponse } from "./shared/utils/response";
 import { PORT } from "./config/constants";
 
+import services from "./services";
+
 import errorHandler from "./shared/middlewares/errorhandler";
 
 export const app = express();
@@ -19,6 +21,9 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+
+
+app.use(services);
 
 // 404 Error
 app.use("*", (req, res) => {

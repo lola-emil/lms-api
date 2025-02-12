@@ -1,10 +1,12 @@
 import { type Request, type Response } from "express";
 import UserProfileRepo from "../repository/user-profile";
+import { validateProfileUpdate } from "../../course-management/validators/user-profile.validator";
+import { ErrorResponse } from "../../../shared/utils/response";
 
 
 export async function insert(req: Request, res: Response) {
     const body = req.body;
-        
+    
 }
 
 export async function find(req: Request, res: Response) {
@@ -15,10 +17,22 @@ export async function find(req: Request, res: Response) {
 }
 
 export async function update(req: Request, res: Response) {
-    const id = req.params.id;
+    const id = parseInt(req.params.id);
     const body = req.body;
 
-    return res.status(200).json({
-        message: "Updated successfully"
-    });
-}
+    const matchedProfile = await UserProfileRepo.find({ id });
+
+    if (matchedProfile.length == 0)
+        throw new ErrorResponse(400, "", {
+            message: "Invalid id"
+        });
+
+    const errors = await validateProfileUpdate(body);
+
+    if (errors)
+        throw new ErrorResponse(400, "", errors);
+
+    const result = await UserProfileRepo.update(id, body);
+
+    return res.status(200).json(result);
+}   
