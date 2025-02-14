@@ -4,7 +4,6 @@ import { UserRequestBody, validateUser } from "../validators/user.validator";
 import { ErrorResponse, HttpResponse } from "../../../shared/utils/response";
 import bcrypt from "bcrypt";
 import { sendAccountVerificationMail, sendMail } from "../../../config/mailer";
-import { MAILER_ADDRESS } from "../../../config/constants";
 
 
 
@@ -31,35 +30,45 @@ export async function insert(req: Request, res: Response) {
     if (errors)
         throw new ErrorResponse(400, "", errors);
 
-    // body.user.password = await bcrypt.hash(body.user.password, 10);
+    // Start MYSQL TRANSACTION
+    const trx = await db.transaction();
 
-    const userProfileResult = await UserProfileRepo.insert(body.user_profile);
+    try {
+        const userProfileResult = await UserProfileRepo.insert(body.user_profile, trx);
 
-    body.user.profile_id = userProfileResult[0];
+        body.user.profile_id = userProfileResult[0];
+    
+        const userResult = await UserRepo.insert(body.user, trx);
+    
+        const tempPassword = passwordGenerator(8);
+        const date = new Date();
+    
+        // add one day para sa expiration
+        date.setDate(date.getDate() + 1);
+    
+        await UserTempCredentialRepo.insert({
+            temp_password: tempPassword,
+            expires_at: date,
+            user_id: userResult[0]
+    
+        }, trx);
+    
+    
+        await trx.commit();
+    
+        // Send ang verfication email
+        sendAccountVerificationMail(body.user.email, body.user_profile.fname);
+    
+        const response = new HttpResponse(200, "Success", {
+            message: `Verficiation email has been sent to ${body.user.email}`
+        });
+    
+        return res.status(200).json(response);
+    } catch (error) {
+        await trx.rollback();
 
-    const userResult = await UserRepo.insert(body.user);
-
-    const tempPassword = passwordGenerator(8);
-    const date = new Date();
-
-    // add one day para sa expiration
-    date.setDate(date.getDate() + 1);
-
-    await UserTempCredentialRepo.insert({
-        temp_password: tempPassword,
-        expires_at: date,
-        user_id: userResult[0]
-    });
-
-
-    // Send ang verfication email
-    sendAccountVerificationMail(body.user.email, body.user_profile.fname);
-
-    const response = new HttpResponse(200, "Success", {
-        message: `Verficiation email has been sent to ${body.user.email}`
-    });
-
-    return res.status(200).json(response);
+        throw error;
+    }
 
 }
 

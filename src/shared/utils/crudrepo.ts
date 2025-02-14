@@ -1,3 +1,4 @@
+import knex, { Knex } from "knex";
 import { db } from "../../config/db";
 import Logger from "./logger";
 import { ErrorResponse } from "./response";
@@ -69,18 +70,33 @@ export default class CrudRepo<T extends {}> {
         }
     }
 
-    async insert(data: Partial<T>) {
-        const result = await db(this.tableName).insert(data);
+    async insert(data: Partial<T>, trx?: Knex.Transaction) {
+        const query = db(this.tableName).insert(data)
+
+        if (trx)
+            query.transacting(trx);
+
+        const result = await query;
         return result;
     }
 
-    async update(id: number | string, data: Partial<T>) {
-        const result = await db(this.tableName).update(data).where("id", id);
+    async update(id: number | string, data: Partial<T>, trx?: Knex.Transaction) {
+        const query = db(this.tableName).update(data).where("id", id);
+
+        if (trx)
+            query.transacting(trx);
+
+        const result = await query;
         return result;
     }
 
-    async remove(id: number | string) {
-        const result = await db(this.tableName).delete().where("id", id);
+    async remove(id: number | string, trx?: Knex.Transaction) {
+        const query = db(this.tableName).delete().where("id", id);
+
+        if (trx)
+            query.transacting(trx);
+
+        const result = await query;
         return result;
     }
 }
