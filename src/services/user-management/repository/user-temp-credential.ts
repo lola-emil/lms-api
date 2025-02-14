@@ -6,6 +6,8 @@ export type UserTempCredential = {
     id: number,
     temp_password: string,
 
+    user_id: number,
+
     expires_at: Date,
 
     created_at: Date,

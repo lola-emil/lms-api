@@ -37,7 +37,7 @@ export async function insert(req: Request, res: Response) {
 
     body.user.profile_id = userProfileResult[0];
 
-    await UserRepo.insert(body.user);
+    const userResult = await UserRepo.insert(body.user);
 
     const tempPassword = passwordGenerator(8);
     const date = new Date();
@@ -47,7 +47,8 @@ export async function insert(req: Request, res: Response) {
 
     await UserTempCredentialRepo.insert({
         temp_password: tempPassword,
-        expires_at: date
+        expires_at: date,
+        user_id: userResult[0]
     });
 
 
