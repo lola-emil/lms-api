@@ -12,20 +12,20 @@ export type UserRequestBody = {
 const userBodySchema = Joi.object({
     user: Joi.object({
         email: Joi.string().email().required(),
-        password: Joi.string()
-            .min(8)
-            .max(50)
-            .pattern(/[a-z]/, "lowercase")
-            .pattern(/[A-Z]/, "uppercase")
-            .pattern(/[0-9]/, "number")
-            .pattern(/[@$!%*?&]/, "special character")
-            .required()
-            .messages({
-                "string.min": "Password must be at least 8 characters long.",
-                "string.max": "Password cannot exceed 50 characters.",
-                "string.pattern.name": "Password must contain at least one {#name}.",
-                "any.required": "Password is required."
-            }),
+        // password: Joi.string()
+        //     .min(8)
+        //     .max(50)
+        //     .pattern(/[a-z]/, "lowercase")
+        //     .pattern(/[A-Z]/, "uppercase")
+        //     .pattern(/[0-9]/, "number")
+        //     .pattern(/[@$!%*?&]/, "special character")
+        //     .required()
+        //     .messages({
+        //         "string.min": "Password must be at least 8 characters long.",
+        //         "string.max": "Password cannot exceed 50 characters.",
+        //         "string.pattern.name": "Password must contain at least one {#name}.",
+        //         "any.required": "Password is required."
+        //     }),
         role_id: Joi.number().required(),
     }).required(),
 
@@ -49,7 +49,7 @@ export async function validateUser(body: UserRequestBody): Promise<Joi.Validatio
     if (matchedUser.length > 0)
         return [
             {
-                message: "Incorrect email or password",
+                message: "Email already taken",
                 path: [
                     "email"
                 ],

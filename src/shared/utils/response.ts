@@ -2,22 +2,22 @@
 export class HttpResponse {
     status: number;
     message: string;
-    payload: unknown;
+    data: unknown;
 
 
-    constructor(status: number = 200, message: string = "", payload: unknown) {
+    constructor(status: number = 200, message: string = "", data: unknown) {
         this.status = status;
         this.message = message;
-        this.payload = payload;
+        this.data = data;
     }
 };
 
 export class ErrorResponse extends Error {
     status: number;
-    data: any;
+    data: unknown;
     // errorId: string;
 
-    constructor(status: number, message?: string, data?: any) {
+    constructor(status: number, message?: string, data?: unknown) {
         super();
 
         this.status = status;
