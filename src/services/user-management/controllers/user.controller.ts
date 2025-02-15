@@ -57,7 +57,7 @@ export async function insert(req: Request, res: Response) {
         await trx.commit();
     
         // Send ang verfication email
-        sendAccountVerificationMail(body.user.email, body.user_profile.fname);
+        sendAccountVerificationMail(body.user.email, body.user_profile.fname, tempPassword);
     
         const response = new HttpResponse(200, "Success", {
             message: `Verficiation email has been sent to ${body.user.email}`

@@ -1,5 +1,5 @@
 import Joi from "joi";
-import { UserProfile } from "../../user-management/repository/user-profile";
+import { UserProfile } from "../repository/user-profile";
 
 
 const updateProfileSchema = Joi.object({

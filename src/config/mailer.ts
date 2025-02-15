@@ -28,14 +28,17 @@ export function sendMail(from: string, to: string, compose: {
 }
 
 
-export function sendAccountVerificationMail(email: string, name: string) {
+export function sendAccountVerificationMail(email: string, name: string, tempPassword: string) {
   const templateSource = fs.readFileSync(path.join(__dirname, "../../assets/mail_templates/complete-registration.hbs")).toString();
 
   const mailTemplate = Handlebars.compile(templateSource);
 
   const template = mailTemplate({
-    name: name,
-    registrationLink: "http://localhost:8000/verify-account"
+    name,
+    email,
+    year: "2025",
+    loginLink: "http://localhost:8000/verify-account",
+    tempPassword
   });
 
   sendMail(MAILER_ADDRESS, email, {

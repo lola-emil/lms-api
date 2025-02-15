@@ -1,6 +1,6 @@
 import { type Request, type Response } from "express";
 import UserProfileRepo from "../repository/user-profile";
-import { validateProfileUpdate } from "../../course-management/validators/user-profile.validator";
+import { validateProfileUpdate } from "../validators/user-profile.validator";
 import { ErrorResponse } from "../../../shared/utils/response";
 
 
