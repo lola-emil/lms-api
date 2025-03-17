@@ -20,6 +20,7 @@ export default class CrudRepo<T extends {}> {
 
     constructor(tableName: string) {
         this.tableName = tableName;
+        
     }
 
 

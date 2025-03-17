@@ -1,16 +1,18 @@
 
-export class HttpResponse {
-    status: number;
+export class ApiResponse<T> {
+    statusCode: number;
     message: string;
-    data: unknown;
-
-
-    constructor(status: number = 200, message: string = "", data: unknown) {
-        this.status = status;
+    data?: T;
+    errors?: any;
+    
+    constructor(statusCode: number, message: string, data?: T, errors?: any) {
+        this.statusCode = statusCode;
         this.message = message;
         this.data = data;
+        this.errors = errors;
     }
-};
+}
+
 
 export class ErrorResponse extends Error {
     status: number;

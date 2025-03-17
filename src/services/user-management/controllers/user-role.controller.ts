@@ -1,7 +1,7 @@
 import { type Request, type Response } from "express";
 import UserRoleRepo, { UserRole } from "../repository/user-role";
 import { validateUserRole } from "../validators/user-role.validator";
-import { ErrorResponse, HttpResponse } from "../../../shared/utils/response";
+import { ErrorResponse, ApiResponse } from "../../../shared/utils/response";
 
 
 export async function insert(req: Request, res: Response) {
@@ -13,7 +13,7 @@ export async function insert(req: Request, res: Response) {
 
     const result = await UserRoleRepo.insert(body);
 
-    const response = new HttpResponse(200, "", result);
+    const response = new ApiResponse(200, "", result);
 
     return res.status(200).json(response);
 }
@@ -22,7 +22,7 @@ export async function find(req: Request, res: Response) {
     const query = req.query;
 
     const result = await UserRoleRepo.find(query);
-    const response = new HttpResponse(200, "", result);
+    const response = new ApiResponse(200, "", result);
 
     return res.status(200).json(response);
 }
@@ -47,7 +47,7 @@ export async function update(req: Request, res: Response) {
         ]);
 
     const result = await UserRoleRepo.update(id, body);
-    const response = new HttpResponse(200, "", result);
+    const response = new ApiResponse(200, "", result);
     
     return res.status(200).json(response);
 }
