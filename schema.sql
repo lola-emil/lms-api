@@ -11,6 +11,8 @@ CREATE TABLE users (
     address VARCHAR(500),
     city VARCHAR(255),
 
+    role_id INT,
+
 
     email VARCHAR(100) NOT NULL,
     password VARCHAR(100) NOT NULL,
@@ -22,11 +24,13 @@ CREATE TABLE users (
     deleted TINYINT(1) DEFAULT 0,
 
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (role_id) REFERENCES user_roles(id)
 );
 
 
-CREATE TABLE user_role (
+CREATE TABLE user_roles (
     id INT PRIMARY KEY AUTO_INCREMENT,
 
     name VARCHAR(255) NOT NULL,
@@ -35,6 +39,29 @@ CREATE TABLE user_role (
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
+
+
+CREATE TABLE user_role_permissions (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    role_id INT NOT NULL,
+    resource VARCHAR(50) NOT NULL,
+    permission ENUM("GET", "PATCH", "DELETE", "POST") NOT NULL,
+
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (role_id) REFERENCES user_roles(id)
+);
+
+
+
+
+
+
+
+
+
+
 
 
 CREATE TABLE course_categories (

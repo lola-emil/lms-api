@@ -3,13 +3,15 @@ import http from "http";
 import helmet from "helmet";
 import cors from "cors";
 
-import Logger from "./shared/utils/logger";
-import { ErrorResponse } from "./shared/utils/response";
+import Logger from "./utils/logger";
+import { ErrorResponse } from "./utils/response";
 import { PORT } from "./config/constants";
 
-import services from "./services";
 
-import errorHandler from "./shared/middlewares/errorhandler";
+import errorHandler from "./middlewares/errorhandler";
+
+import apiRouter from "./api";
+import authRouter from "./auth";
 
 export const app = express();
 export const server = http.createServer(app);
@@ -21,9 +23,8 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-
-
-app.use(services);
+app.use("/api", apiRouter);
+app.use("/", authRouter);
 
 // 404 Error
 app.use("*", (req, res) => {

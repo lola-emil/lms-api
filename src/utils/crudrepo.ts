@@ -1,5 +1,5 @@
 import knex, { Knex } from "knex";
-import { db } from "../../config/db";
+import { db } from "../config/db";
 import Logger from "./logger";
 import { ErrorResponse } from "./response";
 
@@ -81,6 +81,16 @@ export default class CrudRepo<T extends {}> {
         return result;
     }
 
+    async batchInsert(data: any, trx?: Knex.Transaction) {
+        const query = db.batchInsert(this.tableName, data, 50);
+
+        if (trx)
+            query.transacting(trx);
+
+        const result = await query;
+        return result;
+    }
+
     async update(id: number | string, data: Partial<T>, trx?: Knex.Transaction) {
         const query = db(this.tableName).update(data).where("id", id);
 
@@ -91,8 +101,8 @@ export default class CrudRepo<T extends {}> {
         return result;
     }
 
-    async remove(id: number | string, trx?: Knex.Transaction) {
-        const query = db(this.tableName).delete().where("id", id);
+    async remove(obj: Partial<T>, trx?: Knex.Transaction) {
+        const query = db(this.tableName).where(obj).delete();
 
         if (trx)
             query.transacting(trx);
