@@ -5,15 +5,15 @@ import { ErrorResponse } from "../../utils/response";
 import { db } from "../../config/db";
 
 type BodySchema = {
-    role_id: string,
+    role_id: number,
     resource: string,
-    permission: "GET" | "PATCH" | "DELETE" | "POST",
+    permissions: ("GET" | "PATCH" | "DELETE" | "POST")[];
 };
 
 const bodySchema = Joi.object({
-    role_id: Joi.string().required(), // Ensures role_id is a required string
-    resource: Joi.string().max(255).required(), // Ensures resource is a string with a max length
-    permission: Joi.string().valid("GET", "PATCH", "DELETE", "POST").required() // Restricts permission to specific values
+    role_id: Joi.number().required(),
+    resource: Joi.string().max(255).required(),
+    permissions: Joi.array().items(Joi.string().valid("GET", "PATCH", "DELETE", "POST")).required()
 });
 
 
@@ -32,9 +32,9 @@ export async function insert(req: Request, res: Response) {
         throw new ErrorResponse(400, "Validation Error", error.details);
 
     const userRoleResult = await UserRolePermissionRepo.insert({
-        role_id: parseInt(body.role_id),
+        role_id: body.role_id,
         resource: body.resource,
-        permission: body.permission
+        permissions: JSON.stringify(body.permissions)
     });
 
 

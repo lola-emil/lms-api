@@ -45,14 +45,13 @@ CREATE TABLE user_role_permissions (
     id INT PRIMARY KEY AUTO_INCREMENT,
     role_id INT NOT NULL,
     resource VARCHAR(50) NOT NULL,
-    permission ENUM("GET", "PATCH", "DELETE", "POST") NOT NULL,
+    permissions JSON NOT NULL, -- Store permissions as a JSON array
 
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
     FOREIGN KEY (role_id) REFERENCES user_roles(id)
 );
-
 
 
 

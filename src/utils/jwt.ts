@@ -24,7 +24,6 @@ export async function verifyToken(token: string) {
 
             // Check if token is revoked in Redis
             const token = await getToken((<any>decoded).id);
-            console.log(token);
             if (!token) return reject(new Error("Token revoked"));
             resolve(decoded);
 
