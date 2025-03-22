@@ -56,39 +56,24 @@ CREATE TABLE user_role_permissions (
 
 
 
-
-
-
-
-
-
-
-CREATE TABLE course_categories (
+CREATE TABLE class_level (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(255),
-    
+
+    name VARCHAR(100) NOT NULL,
+
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  
 );
 
-CREATE TABLE course (
+CREATE TABLE class_section (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    category_id INT NOT NULL,
-    fullname VARCHAR(255) NOT NULL,
-    shortname VARCHAR(255) NOT NULL,
-    course_code VARCHAR(100),
     
-    visible TINYINT,
+    name VARCHAR(100) NOT NULL,
+    class_level_id INT NOT NULL,
 
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP  
-);
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
-CREATE TABLE course_modules (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    course_id INT NOT NULL,
-    module_type ENUM(), -- NAA IBUTANG DIRI
-
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP    
+    FOREIGN KEY (class_level_id) REFERENCES class_level(id)
 );

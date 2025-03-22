@@ -10,6 +10,7 @@ export default function errorHandler(
 ): unknown {
     if (error instanceof ErrorResponse) {
         const { status, message, data } = error;
+        Logger.error(`${error.message}\n${error.stack}`)
         return res.status(status).json(new ApiResponse(status, message, data));
     }
 
