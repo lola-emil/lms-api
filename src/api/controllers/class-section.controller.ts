@@ -6,8 +6,8 @@ import Joi from "joi";
 import { ErrorResponse } from "../../utils/response";
 
 const bodySchema = Joi.object({
-    name: Joi.string().max(100).required(),
-    class_level_id: Joi.number().required()
+    level: Joi.string().max(100).required(),
+    section: Joi.string().max(100).required()
 });
 
 export async function get(req: Request, res: Response) {
