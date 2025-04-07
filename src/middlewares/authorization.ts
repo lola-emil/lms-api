@@ -20,6 +20,7 @@ export async function verifyJwtToken(req: Request, res: Response, next: NextFunc
             return next(new ErrorResponse(401, "Unauthorized", { message: "Invalid token" }));
 
         res.locals.user = payload; // Store user data for the next middleware
+        
         next();
     } catch (error: any) {
         if (error.name === "TokenExpiredError") {

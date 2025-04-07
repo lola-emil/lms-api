@@ -40,6 +40,11 @@ export default class CrudRepo<T extends {}> {
         return cols.split(",").filter(col => allowedCols.includes(col.trim()));
     }
 
+    async count() {
+        const result = await db(this.tableName).count('*', {as: "count"});
+        return result[0].count;
+    }
+
     async find(query: QueryModifiers<Partial<T>>): Promise<T[]> {
         try {
             const sql = db(this.tableName);

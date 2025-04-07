@@ -4,12 +4,7 @@ import CrudRepo from "../utils/crudrepo";
 
 export type User = {
   id: number,
-  id_number: string,
-  fname: string,
-  mname?: string,
-  lname: string,
-  picture?: string,
-  
+
   address?: string,
   city?: string,
 
@@ -18,7 +13,7 @@ export type User = {
 
   last_login: string, // date ni siya
 
-  role_id: string,
+  role_id: number,
 
   suspended: boolean,
   deleted: boolean,

@@ -5,12 +5,12 @@ CREATE TABLE subjects (
     title VARCHAR(255) NOT NULL,
     description TEXT,
 
-    grade_level_id INT NOT NULL,
+    class_level_id INT NOT NULL,
 
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
-    FOREIGN KEY (grade_level_id) REFERENCES grade_levels(id)
+    FOREIGN KEY (class_level_id) REFERENCES class_levels(id)
 );
 
 CREATE TABLE subject_lessons (
