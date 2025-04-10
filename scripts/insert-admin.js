@@ -18,7 +18,7 @@ function askQuestion(query) {
 const bodySchema = Joi.object({
   email: Joi.string().email().max(255).required(),
   password: Joi.string().min(8).max(255).required(),
-  role_id: Joi.number().integer().positive().required()
+  user_role_id: Joi.number().integer().positive().required()
 });
 
 async function insertAdmin() {
@@ -27,9 +27,9 @@ async function insertAdmin() {
 
     const email = await askQuestion("Email: ");
     const password = await askQuestion("Password (min 8 chars): ");
-    const role_id = parseInt(await askQuestion("Role ID (Admin Role): "), 10);
+    const user_role_id = parseInt(await askQuestion("Role ID (Admin Role): "), 10);
 
-    const newUser = { email, password, role_id };
+    const newUser = { email, password, user_role_id };
 
     const { error } = bodySchema.validate(newUser);
     if (error) {

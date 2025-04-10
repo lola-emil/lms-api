@@ -1,0 +1,13 @@
+import { Router } from "express";
+import asyncHandler from "../../../middlewares/asynchandler";
+import * as Controller from "./grade-sections.controller";
+
+const router = Router();
+
+
+router.get("/", asyncHandler(Controller.get));
+router.post("/", asyncHandler(Controller.post));
+router.patch("/:id", asyncHandler(Controller.patch));
+router.delete("/:id", asyncHandler(Controller.del));
+
+export default router;
