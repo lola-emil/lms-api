@@ -10,7 +10,7 @@ import { PORT } from "./config/constants";
 
 import errorHandler from "./middlewares/errorhandler";
 
-import apiService from "./services/api";
+import apiService from "./services";
 
 export const app = express();
 export const server = http.createServer(app);
