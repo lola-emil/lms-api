@@ -26,6 +26,8 @@ async function post(req: Request, res: Response) {
         body.credential.password = await argon2.hash(body.credential.password);
 
         const userResult = await userRepo.insert(body.credential, trx);
+
+        body.profile.user_id = userResult[0];
         const profileResult = await userProfileRepo.insert(body.profile, trx);
 
         await trx.commit();
