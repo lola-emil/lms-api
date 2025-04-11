@@ -10,7 +10,6 @@ import { PORT } from "./config/constants";
 
 import errorHandler from "./middlewares/errorhandler";
 
-import apiService from "./services";
 import modules from "./modules";
 
 export const app = express();
@@ -23,7 +22,6 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use("/api", apiService);
 app.use("/modules", modules);
 
 // 404 Error
