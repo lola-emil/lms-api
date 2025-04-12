@@ -15,7 +15,6 @@ export default function errorHandler(
     }
 
     Logger.error(`Internal Server Error: ${error.message}\n${error.stack}`);
-
     const errorMessage = process.env.NODE_ENV === "production" ? "Something went wrong" : error.message;
     return res.status(500).json(new ApiResponse(500, errorMessage));
 }

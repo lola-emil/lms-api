@@ -13,11 +13,11 @@ const postSchema = Joi.object({
     credential: Joi.object({
         email: Joi.string().email().required(),
         password: Joi.string(),
-        role_id: Joi.number().required()
+        user_role_id: Joi.number().required()
     }).required(),
     profile: Joi.object({
         fname: Joi.string().max(255).required(),
-        mname: Joi.string().max(255),
+        mname: Joi.string().max(255).empty().optional(),
         lname: Joi.string().max(255).required(),
 
         home_address: Joi.string().optional(),
@@ -27,7 +27,7 @@ const postSchema = Joi.object({
 
 const patchSchema = Joi.object({
     credential: Joi.object({
-        email: Joi.string().email(),
+        email: Joi.string().email().max(255),
         password: Joi.string(),
         role_id: Joi.number()
     }),
@@ -48,13 +48,16 @@ export async function validatePost(body: UserPostBody): Promise<Joi.ValidationEr
     if (error)
         return error.details;
 
-    const matchedUser = await userRepo.find({});
+    const matchedUser = await userRepo.find({email: body.credential.email});
     if (matchedUser.length > 0)
         return [
             {
                 path: [""],
                 message: "Email already taken",
-                type: ""
+                type: "",
+                context: {
+                    label: "credential.email"
+                }
             }
         ];
 
@@ -76,7 +79,10 @@ export async function validateUpdate(body: UserPatchBody): Promise<Joi.Validatio
                 {
                     path: [""],
                     message: "Email already taken",
-                    type: ""
+                    type: "",
+                    context: {
+                        label: "credential.email"
+                    }
                 }
             ];
     }
