@@ -3,6 +3,14 @@ import gradeSectionsRepo, { GradeSection } from "./grade-sections.repo";
 import { validatePatch, validatePost } from "./grade-sections.validator";
 import { ErrorResponse } from "../../../utils/response";
 
+async function count(req: Request, res: Response) {
+        const result = await gradeSectionsRepo.count();
+    
+        return res.status(200).json({
+            count: result
+        })
+}
+
 async function get(req: Request, res: Response) {
     const query = req.query;
     const result = await gradeSectionsRepo.find(query);
@@ -38,6 +46,7 @@ async function patch(req: Request, res: Response) {
 async function del(req: Request, res: Response) { }
 
 export {
+    count,
     get,
     post,
     patch,

@@ -7,6 +7,14 @@ import { db } from "../../../config/db";
 import argon2 from "argon2";
 
 
+async function count(req: Request, res: Response) {
+    const result = await userRepo.count();
+
+    return res.status(200).json({
+        count: result
+    })
+}
+
 async function get(req: Request, res: Response) {
     const query = req.query;
     const result = await userRepo.find(query);
@@ -84,6 +92,7 @@ async function del(req: Request, res: Response) {
 }
 
 export {
+    count,
     get,
     post,
     patch,

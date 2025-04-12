@@ -71,7 +71,6 @@ export default class CrudRepo<T extends {}> {
 
             return await sql;
         } catch (error) {
-            console.log(error);
             throw new ErrorResponse(400, "Invalid query");
         }
     }

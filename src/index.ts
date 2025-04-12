@@ -22,7 +22,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use("/modules", modules);
+app.use("/api", modules);
 
 // 404 Error
 app.use("*", (req, res) => {
