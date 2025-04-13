@@ -17,6 +17,7 @@ async function get(req: Request, res: Response) {
 
     return res.status(200).json(result);
 }
+
 async function post(req: Request, res: Response) {
     const body = req.body as Partial<GradeSection>;
     const errors = await validatePost(body);

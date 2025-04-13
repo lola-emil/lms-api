@@ -14,13 +14,13 @@ async function count(req: Request, res: Response) {
     })
 }
 
-
 async function get(req: Request, res: Response) { 
     const query = req.query;
     const result = await subjectRepo.find(query);
 
     return res.status(200).json(result);
 }
+
 async function post(req: Request, res: Response) { 
     const body = req.body as SubjectBody;
     const errors = await validatePost(body);
@@ -47,7 +47,9 @@ async function post(req: Request, res: Response) {
         await trx.rollback();
     }
 }
+
 async function patch(req: Request, res: Response) { }
+
 async function del(req: Request, res: Response) { }
 
 export {
