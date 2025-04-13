@@ -27,6 +27,21 @@ CREATE TABLE topics (
     FOREIGN KEY (subject_id) REFERENCES subjects(id)
 );
 
+CREATE TABLE lessons (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(255) NOT NULL,
+    description TEXT,
+    
+    file_upload TEXT,
+
+    topic_id INT NOT NULL,
+
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (topic_id) REFERENCES topics(id)
+);
+
 CREATE TABLE teacher_subject (
     id INT PRIMARY KEY AUTO_INCREMENT,
     teacher_id INT NOT NULL,
