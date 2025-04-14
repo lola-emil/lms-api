@@ -7,7 +7,8 @@ import { db } from "../../../config/db";
 import topicsRepo from "../topics/topics.repo";
 
 async function count(req: Request, res: Response) {
-    const result = await subjectRepo.count();
+    const query = req.query;
+    const result = await subjectRepo.count(query);
 
     return res.status(200).json({
         count: result

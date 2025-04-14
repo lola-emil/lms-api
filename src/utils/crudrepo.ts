@@ -40,9 +40,21 @@ export default class CrudRepo<T extends {}> {
         return cols.split(",").filter(col => allowedCols.includes(col.trim()));
     }
 
-    async count() {
-        const result = await db(this.tableName).count('*', { as: "count" });
-        return result[0].count;
+    async count(query: QueryModifiers<Partial<T>>) {
+        const sql = db(this.tableName).count('*', { as: "count" });
+
+        const filters = this.omitQueryModifiers(query);
+
+        // Apply filters: handle array values using whereIn
+        Object.entries(filters).forEach(([key, value]) => {
+            let val = (<string>value).split(",");
+            if (val.length > 1) {
+                sql.whereIn(key, val);
+            } else {
+                sql.where(key, val[0]);
+            }
+        });
+        return (await sql)[0].count;
     }
 
     async find(query: QueryModifiers<Partial<T>>): Promise<T[]> {

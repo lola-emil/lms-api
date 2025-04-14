@@ -4,6 +4,7 @@ import * as Controller from "./lesson.controller";
 
 const router = Router();
 
+router.get("/count", asyncHandler(Controller.count));
 router.get("/", asyncHandler(Controller.get));
 router.post("/", asyncHandler(Controller.post));
 router.patch("/:id", asyncHandler(Controller.patch));

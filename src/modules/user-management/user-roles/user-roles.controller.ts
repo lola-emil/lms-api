@@ -2,7 +2,8 @@ import type { Request, Response } from "express";
 import userRolesRepo from "./user-roles.repo";
 
 async function count(req: Request, res: Response) {
-    const result = await userRolesRepo.count();
+    const query = req.query;
+    const result = await userRolesRepo.count(query);
 
     return res.status(200).json({
         count: result
