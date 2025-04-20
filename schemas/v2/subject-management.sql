@@ -42,7 +42,7 @@ CREATE TABLE lessons (
     FOREIGN KEY (topic_id) REFERENCES topics(id)
 );
 
-CREATE TABLE teacher_subject (
+CREATE TABLE teacher_subjects (
     id INT PRIMARY KEY AUTO_INCREMENT,
     teacher_id INT NOT NULL,
     grade_level_id INT NOT NULL,
@@ -51,15 +51,23 @@ CREATE TABLE teacher_subject (
     school_year_id INT NOT NULL,
 
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (teacher_id) REFERENCES users(id),
+    FOREIGN KEY (grade_level_id) REFERENCES grade_levels(id),
+    FOREIGN KEY (grade_section_id) REFERENCES grade_sections(id),
+    FOREIGN KEY (subject_id) REFERENCES subjects(id)
 );
 
-CREATE TABLE student_level (
+CREATE TABLE student_grade_levels (
     id INT PRIMARY KEY AUTO_INCREMENT,
     grade_level_id INT NOT NULL,
     grade_section_id INT NOT NULL,
-    school_year_Id INT NOT NULL,
+    school_year_id INT NOT NULL,
 
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (grade_level_id) REFERENCES grade_levels(id),
+    FOREIGN KEY (grade_section_id) REFERENCES grade_sections(id)
 );

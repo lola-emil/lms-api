@@ -3,6 +3,16 @@ import studentLevelRepo from "./student-level.repo";
 import { validateStudentLevel } from "./student-level.validation";
 import { ErrorResponse } from "../../../utils/response";
 
+
+async function count(req: Request, res: Response) {
+    const query = req.query;
+    const result = await studentLevelRepo.count(query);
+
+    return res.status(200).json({
+        count: result
+    })
+}
+
 async function get(req: Request, res: Response) {
     const query = req.query;
     const result = await studentLevelRepo.find(query);
@@ -27,6 +37,7 @@ async function patch(req: Request, res: Response) { }
 async function del(req: Request, res: Response) { }
 
 export {
+    count,
     get,
     post,
     patch,

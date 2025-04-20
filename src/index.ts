@@ -11,6 +11,7 @@ import { PORT } from "./config/constants";
 import errorHandler from "./middlewares/errorhandler";
 
 import modules from "./modules";
+import zoom from "./services/zoom";
 
 export const app = express();
 export const server = http.createServer(app);
@@ -23,6 +24,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use("/api", modules);
+app.use("/zoom", zoom);
 
 // 404 Error
 app.use("*", (req, res) => {

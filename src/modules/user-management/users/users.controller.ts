@@ -5,6 +5,8 @@ import { UserPatchBody, UserPostBody, validatePost, validateUpdate } from "./use
 import { ErrorResponse } from "../../../utils/response";
 import { db } from "../../../config/db";
 import argon2 from "argon2";
+import csvToObj from "csvtojson";
+import path from "path";
 
 
 async function count(req: Request, res: Response) {
@@ -13,9 +15,59 @@ async function count(req: Request, res: Response) {
 
     return res.status(200).json({
         count: result
-    })
+    });
 }
 
+async function bulkImport(req: Request, res: Response) {
+
+    if (!req.file)
+        throw new ErrorResponse(400, "", {});
+
+    const supportedTypes = [
+        "text/csv",
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "application/vnd.ms-excel",
+    ];
+
+    const matchedType = supportedTypes.includes(req.file.mimetype);
+
+    if (!matchedType)
+        throw new ErrorResponse(400, "", {
+            message: "File not supported"
+        });
+
+    if (req.file.size > 5e7)
+        throw new ErrorResponse(400, "", {
+            message: "File too large"
+        });
+
+    const data = await csvToObj().fromFile(path.join(__dirname, "../../../../temp/" + req.file.filename));
+
+    for (let i = 0; i < data.length; i++) {
+        const trx = await db.transaction();
+        try {
+            const [userResult] = await userRepo.insert({
+                email: data[i].email,
+                password: data[i].password,
+                user_role_id: 2
+            }, trx);
+
+            await userProfileRepo.insert({
+                fname: data[i].fname,
+                lname: data[i].lname,
+                user_id: userResult
+            }, trx);
+            trx.commit();
+        } catch (error) {
+            console.log(error);
+            trx.rollback();
+        }
+    }
+
+    return res.status(200).json({
+        message: "File Received"
+    });
+}
 
 async function get(req: Request, res: Response) {
     const query = req.query;
@@ -90,7 +142,7 @@ async function patch(req: Request, res: Response) {
 }
 
 async function del(req: Request, res: Response) {
-    
+
 }
 
 export {
@@ -98,5 +150,6 @@ export {
     get,
     post,
     patch,
-    del
+    del,
+    bulkImport
 };
