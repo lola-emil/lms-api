@@ -7,7 +7,7 @@ export function signToken(payload: string | object | Buffer): Promise<string> {
     return new Promise((resolve, reject) => {
         jwt.sign(payload, JWT_SECRET_KEY,
             {
-                expiresIn: "1h"
+                // expiresIn: "1h"
             },
             (err, token) => {
                 if (err) reject(err);
@@ -23,8 +23,8 @@ export async function verifyToken(token: string) {
             if (err) return reject(err);
 
             // Check if token is revoked in Redis
-            const token = await getToken((<any>decoded).id);
-            if (!token) return reject(new Error("Token revoked"));
+            // const token = await getToken((<any>decoded).id);
+            // if (!token) return reject(new Error("Token revoked"));
             resolve(decoded);
 
         });

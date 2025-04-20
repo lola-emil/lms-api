@@ -12,6 +12,8 @@ import errorHandler from "./middlewares/errorhandler";
 
 import modules from "./modules";
 import zoom from "./services/zoom";
+import authService from "./services/auth/auth.route";
+import { verifyJwtToken } from "./middlewares/authorization";
 
 export const app = express();
 export const server = http.createServer(app);
@@ -23,7 +25,9 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use("/api", modules);
+
+app.use("/auth", authService);
+app.use("/api", verifyJwtToken, modules);
 app.use("/zoom", zoom);
 
 // 404 Error

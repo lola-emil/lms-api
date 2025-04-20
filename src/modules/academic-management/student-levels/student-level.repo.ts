@@ -11,6 +11,8 @@ export type StudentLevel = {
     grade_section_id: number;
     school_year_id: number;
 
+    student_id: number;
+
     created_at: string;
     updated_at: string;
 }

@@ -1,3 +1,7 @@
+/**
+ * This resource is considered as the student's enrollment record
+ */
+
 import type { Request, Response } from "express";
 import studentLevelRepo from "./student-level.repo";
 import { validateStudentLevel } from "./student-level.validation";

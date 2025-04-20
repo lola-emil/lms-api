@@ -79,7 +79,8 @@ export default class CrudRepo<T extends {}> {
 
             // Apply filters: handle array values using whereIn
             Object.entries(filters).forEach(([key, value]) => {
-                let val = (<string>value).split(",");
+                console.log(value);
+                let val = (<string>value).toString().split(",");
                 if (val.length > 1) {
                     sql.whereIn(key, val);
                 } else {
@@ -89,6 +90,7 @@ export default class CrudRepo<T extends {}> {
 
             return await sql;
         } catch (error) {
+            console.log(error);
             throw new ErrorResponse(400, "Invalid query");
         }
     }

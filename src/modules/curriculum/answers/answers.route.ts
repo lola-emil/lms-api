@@ -1,0 +1,13 @@
+import { Router } from "express";
+import * as Controller from "./answers.controller";
+import asyncHandler from "../../../middlewares/asynchandler";
+
+const router = Router();
+
+router.get("/count", asyncHandler(Controller.count));
+router.get("/", asyncHandler(Controller.get));
+router.post("/", asyncHandler(Controller.post));
+router.patch("/:id", asyncHandler(Controller.patch));
+router.delete("/:id", asyncHandler(Controller.del));
+
+export default router;

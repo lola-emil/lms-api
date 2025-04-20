@@ -4,6 +4,8 @@ CREATE TABLE school_year (
     start_year INT NOT NULL,
     end_year INT NOT NULL,
 
+    is_current BOOLEAN DEFAULT 0,
+
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );

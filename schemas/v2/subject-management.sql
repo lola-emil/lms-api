@@ -59,15 +59,32 @@ CREATE TABLE teacher_subjects (
     FOREIGN KEY (subject_id) REFERENCES subjects(id)
 );
 
+
+CREATE TABLE subject_topics (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+
+    title VARCHAR(255) NOT NULL,
+    description TEXT,
+
+    teacher_subject_id INT NOT NULL,
+
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (teacher_subject_id) REFERENCES teacher_subjects(id),
+);
+
 CREATE TABLE student_grade_levels (
     id INT PRIMARY KEY AUTO_INCREMENT,
     grade_level_id INT NOT NULL,
     grade_section_id INT NOT NULL,
     school_year_id INT NOT NULL,
+    student_id INT NOT NULL,
 
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 
     FOREIGN KEY (grade_level_id) REFERENCES grade_levels(id),
-    FOREIGN KEY (grade_section_id) REFERENCES grade_sections(id)
+    FOREIGN KEY (grade_section_id) REFERENCES grade_sections(id),
+    FOREIGN KEY (student_id) REFERENCES users(id)
 );
