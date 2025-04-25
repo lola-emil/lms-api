@@ -12,7 +12,6 @@ CREATE TABLE users (
 
     last_login DATETIME,
 
-    user_role_id INT NOT NULL,
 
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -22,12 +21,14 @@ CREATE TABLE users (
 
 CREATE TABLE user_profiles (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    fname VARCHAR(255) NOT NULL,
-    mname VARCHAR(255),
-    lname VARCHAR(255) NOT NULL,
+    firstname VARCHAR(255) NOT NULL,
+    middlename VARCHAR(255),
+    lastname VARCHAR(255) NOT NULL,
 
     home_address TEXT,
     contact_no VARCHAR(50),
+
+    lrn VARCHAR(100),
 
     user_id INT NOT NULL,
 

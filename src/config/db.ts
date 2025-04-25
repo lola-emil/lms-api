@@ -4,16 +4,16 @@ import Redis from "ioredis";
 
 
 export const db = knex({
-    client: "mysql2",
+  client: "mysql2",
 
-    connection: {
-        host: DB_HOST,
-        port: DB_PORT,
-        database: DB_NAME,
-        user: DB_USER,
-        password: DB_PASSWORD
-    }
-})
+  connection: {
+    host: DB_HOST,
+    port: DB_PORT,
+    database: DB_NAME,
+    user: DB_USER,
+    password: DB_PASSWORD
+  }
+});
 
 
 export const redis = new Redis({

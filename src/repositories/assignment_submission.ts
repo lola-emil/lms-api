@@ -11,4 +11,4 @@ export type AssignmentSubmission = {
 };
 
 
-export default new CrudRepo<AssignmentSubmission>("assignment_submissions");
+const repo = new CrudRepo<AssignmentSubmission>("assignment_submissions");

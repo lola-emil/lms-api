@@ -1,4 +1,4 @@
-import CrudRepo from "../utils/crudrepo";
+import CrudRepo from "../../../utils/crudrepo";
 
 
 export type UserRole = {

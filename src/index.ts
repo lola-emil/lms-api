@@ -10,8 +10,9 @@ import { PORT } from "./config/constants";
 
 import errorHandler from "./middlewares/errorhandler";
 
-import modules from "./modules";
 import zoom from "./services/zoom";
+import api from "./services/api";
+import auth from "./services/auth";
 
 export const app = express();
 export const server = http.createServer(app);
@@ -23,7 +24,9 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use("/api", modules);
+app.use("/auth", auth);
+app.use("/api", api);
+// app.use("/api", modules);
 app.use("/zoom", zoom);
 
 // 404 Error
