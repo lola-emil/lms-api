@@ -5,6 +5,8 @@ interface SubjectMaterial {
     title: string; // Title of the material
     type: 'document' | 'quiz' | 'video'; // Enum representing the type of material
     file_url?: string; // Optional URL to the material (could be null or empty)
+
+    subject_id: number;
     created_by: number; // ID of the user who created the material
     updated_by: number; // ID of the user who last updated the material
     created_at: string; // ISO string for the creation timestamp

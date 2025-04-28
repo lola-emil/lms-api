@@ -1,0 +1,16 @@
+Field,Type,Null,Key,Default,Extra
+id,"int unsigned",NO,PRI,NULL,auto_increment
+customer_billing_invoice_id,"int unsigned",NO,MUL,NULL,
+inventory_id,"int unsigned",NO,,NULL,
+quantity,int,NO,,NULL,
+rate,"decimal(16,2)",NO,,NULL,
+amount,"decimal(16,2)",NO,,NULL,
+tax,varchar(255),YES,,NULL,
+part_name,varchar(255),NO,,NULL,
+uom,varchar(255),NO,,NULL,
+description,varchar(255),NO,,NULL,
+created_at,timestamp,YES,,NULL,
+updated_at,timestamp,YES,,NULL,
+customer_billing_invoice_itemable_id,int,YES,,NULL,
+customer_billing_invoice_itemable_type,varchar(255),YES,,NULL,
+inventory_type,varchar(255),YES,,NULL,

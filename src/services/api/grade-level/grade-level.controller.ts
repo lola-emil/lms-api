@@ -1,24 +1,15 @@
 import { Request, Response } from "express";
 import { ErrorResponse } from "../../../utils/response";
-import subjectRepo from "./subject.repo";
-import { Subject } from "../../../repositories/subject";
+import gradeLevelRepo from "./grade-level.repo";
 
 async function get(req: Request, res: Response) {
     const query = req.query;
-    const result = await subjectRepo.find(query);
+    const result = await gradeLevelRepo.find(query);
 
     return res.status(200).json(result);
 }
 
-async function post(req: Request, res: Response) {
-    const body = req.body as Subject;
-
-    await subjectRepo.insert(body);
-
-    return res.status(200).json({
-        message: "Added successfully"
-    });
-}
+async function post(req: Request, res: Response) { }
 
 async function patch(req: Request, res: Response) { }
 

@@ -15,6 +15,8 @@ import classworkRoute from "./classworks/classworks.route";
 import classworkSubmissionRoute from "./classwork-submissions/classwork-submission.route";
 import classworkAttachmentRoute from "./classwork-attachments/classwork-attachments.route";
 
+import gradeLevelRoute from "./grade-level/grade-level.route";
+
 const router = Router();
 
 router.use("/users", userRoute);
@@ -33,6 +35,8 @@ router.use("/quiz-sessions", quizSession);
 router.use("/classworks", classworkRoute);
 router.use("/classwork-submissions", classworkSubmissionRoute);
 router.use("/classwork-attachments", classworkAttachmentRoute);
+
+router.use("/grade-levels", gradeLevelRoute);
 
 
 export default router;

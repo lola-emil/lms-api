@@ -1,0 +1,14 @@
+Signaling process
+
+1. SEND OFFER
+	* GUM
+	* PC
+	* STUN
+	* ICE
+	* Track
+2. SEND ANSWER
+	* GUM
+	* PC
+	* STUN
+	* ICE
+	* Track
